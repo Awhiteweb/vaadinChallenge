@@ -1,0 +1,79 @@
+First Task:
+
+package org.bluemix.challenge;
+
+
+import javax.servlet.annotation.WebServlet;
+
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+
+/**
+ *
+ */
+@Theme("mytheme")
+@Widgetset("org.bluemix.challenge.MyAppWidgetset")
+public class MyUI extends UI 
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private TextField nameInput;
+	private Label label;
+	
+    @Override
+    protected void init(VaadinRequest vaadinRequest) 
+    {
+        final VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        setContent(layout);
+        
+        nameInput = new TextField( "Enter you name" );
+        label = new Label();
+        comboBox = new ComboBox( "Customers", customers );
+
+        Button button = new Button("Click Me");
+        button.addClickListener(new Button.ClickListener() {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public void buttonClick(ClickEvent event) {
+            	label.setValue( "Thank you for clicking " + getName() );
+            }
+        });
+        layout.addComponent( nameInput );
+        layout.addComponent( button );
+        layout.addComponent( label );
+
+    }
+
+    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+    public static class MyUIServlet extends VaadinServlet {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+    }
+    
+    public String getName()
+    {
+    	String name = nameInput.getValue();
+    	return name != null ? name : "";
+    }
+}
