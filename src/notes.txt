@@ -1,2 +1,1 @@
-create Navigation element manual page 416 section 11.9
-move task2 code into new class that implements View
+get click listener to only respond once, either on click release or if element already exists in UI
