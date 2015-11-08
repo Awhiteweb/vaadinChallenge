@@ -25,6 +25,7 @@ import com.vaadin.ui.renderers.DateRenderer;
 
 public class Dashboard extends VerticalLayout implements View 
 {
+	private static final long serialVersionUID = 1L;
 	private ComboBox comboBox;
 	private Grid grid;
 	private Button button;
